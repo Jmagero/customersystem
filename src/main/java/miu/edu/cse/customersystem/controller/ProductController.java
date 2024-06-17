@@ -3,7 +3,6 @@ package miu.edu.cse.customersystem.controller;
 import lombok.RequiredArgsConstructor;
 import miu.edu.cse.customersystem.dto.ProductRequestDto;
 import miu.edu.cse.customersystem.dto.ProductResponseDto;
-import miu.edu.cse.customersystem.model.Product;
 import miu.edu.cse.customersystem.service.product.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +24,8 @@ public class ProductController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/productId")
-    public ResponseEntity<ProductResponseDto> getProductById(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponseDto> getProductById(@PathVariable Long id) {
         Optional<ProductResponseDto> productResponse = productService.findById(id);
         if (productResponse.isPresent()) {
             return ResponseEntity.ok(productResponse.get());

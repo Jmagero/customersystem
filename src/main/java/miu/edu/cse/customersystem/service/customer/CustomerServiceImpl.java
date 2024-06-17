@@ -23,7 +23,9 @@ public class CustomerServiceImpl implements CustomerService {
             CustomerResponseDto customerResponseDto = CustomerResponseDto.builder()
                     .name(foundCustomer.getName())
                     .orders(foundCustomer.getOrders())
+                    .id(foundCustomer.getId())
                     .build();
+            return Optional.of(customerResponseDto);
         }
         return Optional.empty();
     }
@@ -32,12 +34,13 @@ public class CustomerServiceImpl implements CustomerService {
     public Optional<CustomerResponseDto> createCustomer(CustomerRequestDto customerRequestDto) {
         Customer customer = new Customer();
         customer.setName(customerRequestDto.getName());
-        customer.setOrders(new ArrayList<>());
+        customer.setOrders(customerRequestDto.getOrders());
         Customer savedCustomer = customerRepository.save(customer);
         CustomerResponseDto customerResponseDto =
                 CustomerResponseDto.builder()
                         .name(savedCustomer.getName())
                         .orders(savedCustomer.getOrders())
+                        .id(savedCustomer.getId())
                         .build();
         return Optional.of(customerResponseDto);
     }

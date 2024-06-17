@@ -13,6 +13,7 @@ import miu.edu.cse.customersystem.repository.ProductRepository;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +32,7 @@ public class OrderServiceImpl implements OrderService {
         if (customer.isPresent()) {
             Order order = new Order();
             order.setCustomer(customer.get());
-            order.setOrderDate(orderRequestDto.getOrderDate());
+            order.setOrderDate(LocalDate.now());
             order.setProducts(products);
             Order savedOrder = orderRepository.save(order);
             OrderResponseDto orderResponseDto = new OrderResponseDto();
